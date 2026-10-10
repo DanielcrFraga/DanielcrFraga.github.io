@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniel | Portfólio</title>
+
+    <style>
+        /*
+            CSS base do projeto.
+            Aqui configuramos as cores, margens e fontes principais.
+            A ideia é deixar a página limpar, moderna e fácil de entender.
+        */
+
+        :root {
+            --cor-fundo: #f4f7fb;
+            --cor-primaria: #2563eb;
+            --cor-primaria-escura: #1d4ed8;
+            --cor-secundaria: #0f172a;
+            --cor-card: #ffffff;
+            --cor-texto: #1f2937;
+            --cor-texto-claro: #5b6475;
+            --cor-borda: #e5e7eb;
+            --cor-sucesso: #10b981;
+            --sombra: 0 12px 32px rgba(15, 23, 42, 0.08);
+            --raio: 18px;
+            --container: 1100px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        h1, h2, h3, p {
+            margin-top: 0;
+        }
+
+        /*
+            Container centraliza o conteúdo em uma largura máxima.
+            Isso ajuda o layout a ficar bonito em telas grandes e legível em celulares.
+        */
+        .container {
+            width: min(var(--container), calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        /*
+            Cabeçalho com fundo escuro e navegação simples.
+            Display flex deixa os elementos alinhados em linha.
+        */
+        .cabecalho {
+            background: var(--cor-secundaria);
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .cabecalho .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 72px;
+            gap: 16px;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .menu a {
+            color: #dbeafe;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .menu a:hover,
+        .menu a:focus {
+            color: #ffffff;
+        }
+
+        /*
+            Hero principal com fundo suave e layout em coluna no mobile.
+            Em telas maiores, o texto e a foto ficam lado a lado.
+        */
+        .hero {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            padding: 56px 0 40px;
+        }
+
+        .hero-conteudo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            text-align: center;
+        }
+
+        .foto-perfil {
+            width: 230px;
+            height: 230px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #fff;
+            box-shadow: var(--sombra);
+        }
+
+        .titulo {
+            font-size: clamp(2.2rem, 6vw, 4rem);
+            line-height: 1.1;
+            color: var(--cor-secundaria);
+            margin-bottom: 12px;
+        }
+
+        .subtitulo {
+            font-size: 1.08rem;
+            color: var(--cor-texto-claro);
+            max-width: 650px;
+        }
+
+        .botoes {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .botao {
+            display: inline-block;
+            padding: 14px 22px;
+            border-radius: 999px;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .botao:hover,
+        .botao:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 18px rgba(37, 99, 235, 0.18);
+        }
+
+        .botao-primario {
+            background: var(--cor-primaria);
+            color: #fff;
+        }
+
+        .botao-secundario {
+            border: 2px solid var(--cor-primaria);
+            color: var(--cor-primaria);
+            background: transparent;
+        }
+
+        /*
+            Seções gerais do site.
+            O padding deixa o conteúdo respirando e fácil de ler.
+        */
+        .secao {
+            padding: 80px 0;
+        }
+
+        .titulo-secao {
+            font-size: clamp(1.8rem, 5vw, 2.6rem);
+            text-align: center;
+            color: var(--cor-secundaria);
+            margin-bottom: 30px;
+        }
+
+        /*
+            Sobre mim: texto e info lateral.
+            Com o flex, o aluno consegue entender como criar uma área em duas colunas.
+        */
+        .sobre-conteudo {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .bloco-texto,
+        .info-box,
+        .habilidade,
+        .projeto,
+        .formulario {
+            background: var(--cor-card);
+            border: 1px solid var(--cor-borda);
+            border-radius: var(--raio);
+            box-shadow: var(--sombra);
+        }
+
+        .bloco-texto {
+            padding: 26px;
+        }
+
+        .bloco-texto p,
+        .info-box p,
+        .projeto p {
+            color: var(--cor-texto-claro);
+        }
+
+        .mini-info {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .info-box {
+            padding: 22px 20px;
+        }
+
+        .info-box h3 {
+            color: var(--cor-secundaria);
+            margin-bottom: 10px;
+        }
+
+        /*
+            Grade de habilidades com flex-wrap.
+            Isso faz as cards ajustarem automaticamente conforme a tela fica maior ou menor.
+        */
+        .habilidades-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .habilidade {
+            flex: 1 1 220px;
+            max-width: 260px;
+            padding: 24px 18px;
+            text-align: center;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .habilidade:hover {
+            transform: translateY(-5px);
+            border-color: var(--cor-primaria);
+        }
+
+        .icone {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        .habilidade h3 {
+            color: var(--cor-secundaria);
+            margin-bottom: 10px;
+        }
+
+        .habilidade p {
+            color: var(--cor-texto-claro);
+            font-size: 0.95rem;
+        }
+
+        /*
+            Cards de projetos em grid.
+            Grid é ótimo para mostrar vários itens com layout consistente.
+        */
+        .projetos-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .projeto {
+            overflow: hidden;
+        }
+
+        .projeto-imagem {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 220px;
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: var(--cor-secundaria);
+        }
+
+        .projeto-conteudo {
+            padding: 22px 20px;
+        }
+
+        .projeto h3 {
+            color: var(--cor-secundaria);
+            margin-bottom: 10px;
+        }
+
+        .projeto a {
+            display: inline-block;
+            color: var(--cor-primaria);
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /*
+            Área de contato.
+            Os campos do formulário ficam em coluna, e os itens podem ficar lado a lado em telas maiores.
+        */
+        .contato-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .formulario {
+            padding: 24px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-weight: bold;
+            color: var(--cor-secundaria);
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--cor-borda);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: Arial, Helvetica, sans-serif;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--cor-primaria);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+            outline: none;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn-enviar {
+            border: none;
+            background: var(--cor-primaria);
+            color: #fff;
+            padding: 16px 20px;
+            border-radius: 999px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .btn-enviar:hover,
+        .btn-enviar:focus {
+            background: var(--cor-primaria-escura);
+            transform: translateY(-2px);
+        }
+
+        .rodape {
+            background: var(--cor-secundaria);
+            color: #fff;
+            padding: 26px 0;
+            text-align: center;
+        }
+
+        /*
+            Media query para tablets e desktops.
+            A partir de 768px, o layout principal fica em duas colunas e os projetos ficam em 3 colunas.
+        */
+        @media (min-width: 768px) {
+            .hero-conteudo {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                text-align: left;
+            }
+
+            .sobre-conteudo {
+                flex-direction: row;
+                align-items: stretch;
+            }
+
+            .bloco-texto,
+            .mini-info {
+                flex: 1;
+            }
+
+            .projetos-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .contato-wrap {
+                flex-direction: row;
+            }
+
+            .contato-wrap > * {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="cabecalho">
+        <div class="container">
+            <div class="logo">Daniel</div>
+
+            <nav class="menu" aria-label="Menu principal">
+                <a href="#sobre">Sobre</a>
+                <a href="#habilidades">Habilidades</a>
+                <a href="#projetos">Projetos</a>
+                <a href="#contato">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="sobre">
+            <div class="container hero-conteudo">
+                <div>
+                    <h1 class="titulo">Daniel</h1>
+                    <p class="subtitulo">
+                        [sou aluno do curso tec informatica]
+                    </p>
+
+                    <div class="botoes">
+                        <a href="#projetos" class="botao botao-primario">Ver projetos</a>
+                        <a href="#contato" class="botao botao-secundario">Falar comigo</a>
+                    </div>
+                </div>
+
+                <img
+                    class="foto-perfil"
+                    src="https://avatars.githubusercontent.com/u/323384573?s=400&u=4306edb5929d8e403ddad0a859630e8a58c380aa&v=4"
+                    alt="Foto de perfil de Daniel"
+                >
+            </div>
+        </section>
+
+        <section class="secao">
+            <div class="container">
+                <h2 class="titulo-secao">Sobre Mim</h2>
+
+                <div class="sobre-conteudo">
+                    <div class="bloco-texto">
+                        <p>
+                            Olá, meu nome é <strong>Daniel</strong> e sou estudante de tecnologia.
+                            Estou começando a aprender HTML, CSS, JavaScript e futuramente quero evoluir para PHP e MySQL.
+                        </p>
+                        <p>
+                            Este portfólio é um modelo para mostrar minhas habilidades, meus projetos e meu crescimento como desenvolvedor.
+                            A ideia é praticar organização, estrutura e design de páginas web.
+                        </p>
+                    </div>
+
+                    <div class="mini-info">
+                        <div class="info-box">
+                            <h3>Objetivo</h3>
+                            <p>Aprender a criar interfaces bonitas e funcionais para a web.</p>
+                        </div>
+
+                        <div class="info-box">
+                            <h3>Interesse</h3>
+                            <p>Desenvolvimento front-end, lógica de programação e banco de dados.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="secao" id="habilidades">
+            <div class="container">
+                <h2 class="titulo-secao">Minhas Habilidades</h2>
+
+                <div class="habilidades-grid">
+                    <article class="habilidade">
+                        <div class="icone">🌐</div>
+                        <h3>HTML</h3>
+                        <p>Estrutura de páginas web, semântica e organização do conteúdo.</p>
+                    </article>
+
+                    <article class="habilidade">
+                        <div class="icone">🎨</div>
+                        <h3>CSS</h3>
+                        <p>Estilos, cores, espaçamentos, layout responsivo e visual moderno.</p>
+                    </article>
+
+                    <article class="habilidade">
+                        <div class="icone">⚙️</div>
+                        <h3>JavaScript</h3>
+                        <p>Interação com a página, eventos, validações e dinamismo.</p>
+                    </article>
+
+                    <article class="habilidade">
+                        <div class="icone">💻</div>
+                        <h3>PHP</h3>
+                        <p>Processamento no servidor e integração com formulários.</p>
+                    </article>
+
+                    <article class="habilidade">
+                        <div class="icone">🗄️</div>
+                        <h3>MySQL</h3>
+                        <p>Armazenamento e consulta de dados em banco de dados.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="secao" id="projetos">
+            <div class="container">
+                <h2 class="titulo-secao">Projetos</h2>
+
+                <div class="projetos-grid">
+                    <article class="projeto">
+                        <div class="projeto-imagem">📱</div>
+                        <div class="projeto-conteudo">
+                            <h3>SnakePro</h3>
+                            <p>
+                                Projeto de estudo para aplicar lógica, JavaScript e interface interativa.
+                            </p>
+                            <a href="./MeuProjetos/SnakePro/index-snake-pro.html">Ver projeto</a>
+                        </div>
+                    </article>
+
+                    <article class="projeto">
+                        <div class="projeto-imagem">🧠</div>
+                        <div class="projeto-conteudo">
+                            <h3>[NOME DO SEU PROJETO]</h3>
+                            <p>
+                                Descreva aqui um projeto de front-end, site estático ou aplicativo simples.
+                            </p>
+                            <a href="#">Ver projeto</a>
+                        </div>
+                    </article>
+
+                    <article class="projeto">
+                        <div class="projeto-imagem">🚀</div>
+                        <div class="projeto-conteudo">
+                            <h3>[PRÓXIMO PROJETO]</h3>
+                            <p>
+                                Aqui você pode colocar uma ideia futura para desenvolver com PHP e banco de dados.
+                            </p>
+                            <a href="#">Ver projeto</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="secao" id="contato">
+            <div class="container">
+                <h2 class="titulo-secao">Contato</h2>
+
+                <div class="contato-wrap">
+                    <div class="bloco-texto">
+                        <p>
+                            Se quiser conversar sobre projetos, aprender mais ou colaborar, pode me mandar uma mensagem.
+                        </p>
+                        <p><strong>Email:</strong> [SEU EMAIL AQUI]</p>
+                        <p><strong>GitHub:</strong> [SEU LINK DO GITHUB AQUI]</p>
+                    </div>
+
+                    <div class="formulario">
+                        <!--
+                            Este formulário é o gancho para o futuro.
+                            Quando o aluno estiver usando XAMPP, o Apache vai receber esses dados
+                            e o PHP pode processar no arquivo processa_contato.php.
+                        -->
+                        <form method="POST" action="processa_contato.php">
+                            <div class="campo">
+                                <label for="nome">Nome</label>
+                                <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+                            </div>
+
+                            <div class="campo">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+                            </div>
+
+                            <div class="campo">
+                                <label for="mensagem">Mensagem</label>
+                                <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem" required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-enviar">Enviar mensagem</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <div class="container">
+            <p>&copy; 2026 Daniel. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript simples para simular a ação do envio do formulário.
+        // Em um projeto real, os dados seriam enviados ao PHP no servidor.
+        const formulario = document.querySelector('form');
+
+        if (formulario) {
+            formulario.addEventListener('submit', function (event) {
+                event.preventDefault();
+                alert('Mensagem enviada com sucesso! (modelo para integração com PHP e XAMPP)');
+                formulario.reset();
+            });
+        }
+    </script>
+</body>
+</html>
